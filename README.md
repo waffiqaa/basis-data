@@ -1,0 +1,3 @@
+# basis-data-final
+NAMA : WAFFIQ ADKHILNIY MR
+NIM : D0424310
