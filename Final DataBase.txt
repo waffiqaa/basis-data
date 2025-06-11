@@ -1,0 +1,353 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+
+psql (17.5)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# create database retail_mhsw;
+CREATE DATABASE
+postgres=# create database pendidikan_mhsw;
+CREATE DATABASE
+postgres=# \c retail_mhsw
+You are now connected to database "retail_mhsw" as user "postgres".
+retail_mhsw=# CREATE TABLE produk (
+retail_mhsw(#     id_produk SERIAL PRIMARY KEY,
+retail_mhsw(#     nama_produk VARCHAR(100),
+retail_mhsw(#     harga INTEGER
+retail_mhsw(# );
+CREATE TABLE
+retail_mhsw=#
+retail_mhsw=# CREATE TABLE pelanggan (
+retail_mhsw(#     id_pelanggan SERIAL PRIMARY KEY,
+retail_mhsw(#     nama_pelanggan VARCHAR(100),
+retail_mhsw(#     email VARCHAR(100)
+retail_mhsw(# );
+CREATE TABLE
+retail_mhsw=#
+retail_mhsw=# CREATE TABLE transaksi (
+retail_mhsw(#     id_transaksi SERIAL PRIMARY KEY,
+retail_mhsw(#     id_produk INT REFERENCES produk(id_produk),
+retail_mhsw(#     id_pelanggan INT REFERENCES pelanggan(id_pelanggan),
+retail_mhsw(#     tanggal DATE
+retail_mhsw(# );
+CREATE TABLE
+retail_mhsw=# INSERT INTO produk (nama_produk, harga) VALUES
+retail_mhsw-# ('Laptop ASUS', 8000000),
+retail_mhsw-# ('Mouse Logitech', 250000),
+retail_mhsw-# ('Keyboard Razer', 750000),
+retail_mhsw-# ('Monitor LG', 2000000),
+retail_mhsw-# ('Flashdisk Sandisk', 150000);
+INSERT 0 5
+retail_mhsw=# INSERT INTO pelanggan (nama_pelanggan, email) VALUES
+retail_mhsw-# ('Waffiq Adkhilniy MR', 'wfiqaa@gmail.com'),
+retail_mhsw-# ('Hasanah', 'prezekc@gmail.com'),
+retail_mhsw-# ('Nur Ulfiah', 'ulpiia@gmail.com'),
+retail_mhsw-# ('Serlia Turu Allo', 'serliaa@gmail.com'),
+retail_mhsw-# ('Pasrawan Patma', 'Patmaa@gmail.com');
+INSERT 0 5
+retail_mhsw=# INSERT INTO transaksi (id_produk, id_pelanggan, tanggal) VALUES
+retail_mhsw-# (1, 2, '2025-06-01'),
+retail_mhsw-# (2, 1, '2025-06-04'),
+retail_mhsw-# (3, 3, '2025-06-06'),
+retail_mhsw-# (4, 5, '2025-06-08'),
+retail_mhsw-# (5, 4, '2025-06-10');
+INSERT 0 5
+retail_mhsw=# SELECT * FROM produk;
+ id_produk |    nama_produk    |  harga
+-----------+-------------------+---------
+         1 | Laptop ASUS       | 8000000
+         2 | Mouse Logitech    |  250000
+         3 | Keyboard Razer    |  750000
+         4 | Monitor LG        | 2000000
+         5 | Flashdisk Sandisk |  150000
+(5 rows)
+
+
+retail_mhsw=#  SELECT * FROM pelanggan;
+ id_pelanggan |   nama_pelanggan    |       email
+--------------+---------------------+-------------------
+            1 | Waffiq Adkhilniy MR | wfiqaa@gmail.com
+            2 | Hasanah             | prezekc@gmail.com
+            3 | Nur Ulfiah          | ulpiia@gmail.com
+            4 | Serlia Turu Allo    | serliaa@gmail.com
+            5 | Pasrawan Patma      | Patmaa@gmail.com
+(5 rows)
+
+
+retail_mhsw=# SELECT * FROM transaksi;
+ id_transaksi | id_produk | id_pelanggan |  tanggal
+--------------+-----------+--------------+------------
+            1 |         1 |            2 | 2025-06-01
+            2 |         2 |            1 | 2025-06-04
+            3 |         3 |            3 | 2025-06-06
+            4 |         4 |            5 | 2025-06-08
+            5 |         5 |            4 | 2025-06-10
+(5 rows)
+
+
+retail_mhsw=# \c pendidikan_mhsw
+You are now connected to database "pendidikan_mhsw" as user "postgres".
+pendidikan_mhsw=# CREATE TABLE mahasiswi (
+pendidikan_mhsw(#     id_mahasiswi SERIAL PRIMARY KEY,
+pendidikan_mhsw(#     nama VARCHAR(100),
+pendidikan_mhsw(#     jurusan VARCHAR(100)
+pendidikan_mhsw(# );
+CREATE TABLE
+pendidikan_mhsw=#
+pendidikan_mhsw=# CREATE TABLE mata_kuliah (
+pendidikan_mhsw(#     id_matkul SERIAL PRIMARY KEY,
+pendidikan_mhsw(#     nama_matkul VARCHAR(100),
+pendidikan_mhsw(#     sks INTEGER
+pendidikan_mhsw(# );
+CREATE TABLE
+pendidikan_mhsw=#
+pendidikan_mhsw=# CREATE TABLE nilai (
+pendidikan_mhsw(#     id_nilai SERIAL PRIMARY KEY,
+pendidikan_mhsw(#     id_mahasiswi INT REFERENCES mahasiswi(id_mahasiswi),
+pendidikan_mhsw(#     id_matkul INT REFERENCES mata_kuliah(id_matkul),
+pendidikan_mhsw(#     nilai_angka INTEGER
+pendidikan_mhsw(# );
+CREATE TABLE
+pendidikan_mhsw=# INSERT INTO mahasiswi (nama, jurusan) VALUES
+pendidikan_mhsw-# ('Waffiq Adkhilniy MR', 'Ilmu Kimia'),
+pendidikan_mhsw-# ('Hasanah', 'Akuntansi'),
+pendidikan_mhsw-# ('Nur Ulfiah', 'Sistem Informasi'),
+pendidikan_mhsw-# ('Serlia Turu Allo', 'Teknik Informatika'),
+pendidikan_mhsw-# ('Pasrawan Patma', 'PGSD');
+INSERT 0 5
+pendidikan_mhsw=# INSERT INTO mata_kuliah (nama_matkul, sks) VALUES
+pendidikan_mhsw-# ('Kimia Analitik', 3),
+pendidikan_mhsw-# ('Akuntansi Keuangan', 2),
+pendidikan_mhsw-# ('Basis Data', 3),
+pendidikan_mhsw-# ('Algoritma dan Pemrograman', 3),
+pendidikan_mhsw-# ('Pendidikan PKN Sekolah Dasar', 2);
+INSERT 0 5
+pendidikan_mhsw=# INSERT INTO nilai (id_mahasiswi, id_matkul, nilai_angka) VALUES
+pendidikan_mhsw-# (1, 2, 88),
+pendidikan_mhsw-# (2, 4, 90),
+pendidikan_mhsw-# (3, 3, 85),
+pendidikan_mhsw-# (4, 1, 90),
+pendidikan_mhsw-# (5, 5, 80);
+INSERT 0 5
+pendidikan_mhsw=# SELECT * FROM mahasiswi;
+ id_mahasiswi |        nama         |      jurusan
+--------------+---------------------+--------------------
+            1 | Waffiq Adkhilniy MR | Ilmu Kimia
+            2 | Hasanah             | Akuntansi
+            3 | Nur Ulfiah          | Sistem Informasi
+            4 | Serlia Turu Allo    | Teknik Informatika
+            5 | Pasrawan Patma      | PGSD
+(5 rows)
+
+
+pendidikan_mhsw=# SELECT * FROM mata_kuliah;
+ id_matkul |         nama_matkul          | sks
+-----------+------------------------------+-----
+         1 | Kimia Analitik               |   3
+         2 | Akuntansi Keuangan           |   2
+         3 | Basis Data                   |   3
+         4 | Algoritma dan Pemrograman    |   3
+         5 | Pendidikan PKN Sekolah Dasar |   2
+(5 rows)
+
+
+pendidikan_mhsw=# SELECT * FROM nilai;
+ id_nilai | id_mahasiswi | id_matkul | nilai_angka
+----------+--------------+-----------+-------------
+        1 |            1 |         2 |          88
+        2 |            2 |         4 |          90
+        3 |            3 |         3 |          85
+        4 |            4 |         1 |          90
+        5 |            5 |         5 |          80
+(5 rows)
+
+
+pendidikan_mhsw=# \c retail_mhs
+You are now connected to database "retail_mhs" as user "postgres".
+retail_mhs=#
+retail_mhs=# UPDATE produk
+retail_mhs-# SET harga = 300000
+retail_mhs-# WHERE id_produk = 2;
+UPDATE 1
+retail_mhs=# UPDATE pelanggan
+retail_mhs-# SET email = 'waffiqa@gmail.com'
+retail_mhs-# WHERE id_pelanggan = 1;
+UPDATE 1
+retail_mhs=# UPDATE transaksi
+retail_mhs-# SET tanggal = '2025-06-15'
+retail_mhs-# WHERE id_transaksi = 5;
+UPDATE 0
+retail_mhs=# UPDATE transaksi
+retail_mhs-# SET tanggal = '2025-06-12'
+retail_mhs-# WHERE id_transaksi = 5;
+UPDATE 0
+retail_mhs=# UPDATE transaksi
+retail_mhs-# SET tanggal = '2025-06-12'
+retail_mhs-# WHERE id_transaksi = 3;
+UPDATE 0
+retail_mhs=# SELECT * FROM produk;
+ id_produk |    nama_produk    |  harga
+-----------+-------------------+---------
+         1 | Laptop ASUS       | 8000000
+         3 | Keyboard Razer    |  750000
+         4 | Monitor LG        | 2000000
+         5 | Flashdisk Sandisk |  150000
+         2 | Mouse Logitech    |  300000
+(5 rows)
+
+
+retail_mhs=# SELECT * FROM pelanggan;
+ id_pelanggan |   nama_pelanggan    |       email
+--------------+---------------------+-------------------
+            2 | Hasanah             | przekc@gmail.com
+            3 | Nur Ulfiah          | ulpiia@gmail.com
+            4 | Serlia Turu Allo    | serliaa@gmail.com
+            5 | Pasrawan Patma      | Patmaa@gmail.com
+            1 | Waffiq Adkhilniy MR | waffiqa@gmail.com
+(5 rows)
+
+
+retail_mhs=# SELECT * FROM transaksi;
+ id_transaksi | id_produk | id_pelanggan |  tanggal
+--------------+-----------+--------------+------------
+            6 |         1 |            2 | 2024-06-01
+            7 |         2 |            1 | 2024-06-03
+            8 |         3 |            3 | 2024-06-05
+            9 |         4 |            5 | 2024-06-07
+           10 |         5 |            4 | 2024-06-10
+(5 rows)
+
+
+retail_mhs=# TRUNCATE TABLE transaksi RESTART IDENTITY;
+TRUNCATE TABLE
+retail_mhs=# INSERT INTO transaksi (id_produk, id_pelanggan, tanggal) VALUES
+retail_mhs-# (1, 2, '2025-06-01'),
+retail_mhs-# (2, 1, '2025-06-04'),
+retail_mhs-# (3, 3, '2025-06-06'),
+retail_mhs-# (4, 5, '2025-06-08'),
+retail_mhs-# (5, 4, '2025-06-10');
+INSERT 0 5
+retail_mhs=# SELECT * FROM transaksi;
+ id_transaksi | id_produk | id_pelanggan |  tanggal
+--------------+-----------+--------------+------------
+            1 |         1 |            2 | 2025-06-01
+            2 |         2 |            1 | 2025-06-04
+            3 |         3 |            3 | 2025-06-06
+            4 |         4 |            5 | 2025-06-08
+            5 |         5 |            4 | 2025-06-10
+(5 rows)
+
+
+retail_mhs=# UPDATE transaksi
+retail_mhs-# SET tanggal = '2025-06-12'
+retail_mhs-# WHERE id_transaksi = 5;
+UPDATE 1
+retail_mhs=# SELECT * FROM transaksi;
+ id_transaksi | id_produk | id_pelanggan |  tanggal
+--------------+-----------+--------------+------------
+            1 |         1 |            2 | 2025-06-01
+            2 |         2 |            1 | 2025-06-04
+            3 |         3 |            3 | 2025-06-06
+            4 |         4 |            5 | 2025-06-08
+            5 |         5 |            4 | 2025-06-12
+(5 rows)
+
+
+retail_mhs=# \c pendidikan_mhsw
+You are now connected to database "pendidikan_mhsw" as user "postgres".
+pendidikan_mhsw=# -- Update nama mahasiswi
+pendidikan_mhsw=# UPDATE mahasiswi
+pendidikan_mhsw-# SET nama = 'Waffiq A. MR'
+pendidikan_mhsw-# WHERE id_mahasiswi = 1;
+UPDATE 1
+pendidikan_mhsw=#
+pendidikan_mhsw=# -- Update SKS matkul
+pendidikan_mhsw=# UPDATE mata_kuliah
+pendidikan_mhsw-# SET sks = 4
+pendidikan_mhsw-# WHERE id_matkul = 3;
+UPDATE 1
+pendidikan_mhsw=#
+pendidikan_mhsw=# -- Update nilai angka
+pendidikan_mhsw=# UPDATE nilai
+pendidikan_mhsw-# SET nilai_angka = 95
+pendidikan_mhsw-# WHERE id_nilai = 2;
+UPDATE 1
+pendidikan_mhsw=# SELECT * FROM mahasiswi;
+ id_mahasiswi |       nama       |      jurusan
+--------------+------------------+--------------------
+            2 | Hasanah          | Akuntansi
+            3 | Nur Ulfiah       | Sistem Informasi
+            4 | Serlia Turu Allo | Teknik Informatika
+            5 | Pasrawan Patma   | PGSD
+            1 | Waffiq A. MR     | Ilmu Kimia
+(5 rows)
+
+
+pendidikan_mhsw=# SELECT * FROM mata_kuliah;
+ id_matkul |         nama_matkul          | sks
+-----------+------------------------------+-----
+         1 | Kimia Analitik               |   3
+         2 | Akuntansi Keuangan           |   2
+         4 | Algoritma dan Pemrograman    |   3
+         5 | Pendidikan PKN Sekolah Dasar |   2
+         3 | Basis Data                   |   4
+(5 rows)
+
+
+pendidikan_mhsw=# SELECT * FROM nilai;
+ id_nilai | id_mahasiswi | id_matkul | nilai_angka
+----------+--------------+-----------+-------------
+        1 |            1 |         2 |          88
+        3 |            3 |         3 |          85
+        4 |            4 |         1 |          90
+        5 |            5 |         5 |          80
+        2 |            2 |         4 |          95
+(5 rows)
+
+
+pendidikan_mhsw=# INSERT INTO mahasiswi (nama, jurusan) VALUES
+pendidikan_mhsw-# ('Senku Ishigami', 'Farmasi'),
+pendidikan_mhsw-# ('Lee Jeno', 'Teknik Elektro');
+INSERT 0 2
+pendidikan_mhsw=# SELECT * FROM mahasiswi;
+ id_mahasiswi |       nama       |      jurusan
+--------------+------------------+--------------------
+            2 | Hasanah          | Akuntansi
+            3 | Nur Ulfiah       | Sistem Informasi
+            4 | Serlia Turu Allo | Teknik Informatika
+            5 | Pasrawan Patma   | PGSD
+            1 | Waffiq A. MR     | Ilmu Kimia
+            6 | Senku Ishigami   | Farmasi
+            7 | Lee Jeno         | Teknik Elektro
+(7 rows)
+
+
+pendidikan_mhsw=# DELETE FROM mahasiswi
+pendidikan_mhsw-# WHERE id_mahasiswi IN (6, 7)
+pendidikan_mhsw-# RETURNING *;
+ id_mahasiswi |      nama      |    jurusan
+--------------+----------------+----------------
+            6 | Senku Ishigami | Farmasi
+            7 | Lee Jeno       | Teknik Elektro
+(2 rows)
+
+
+DELETE 2
+pendidikan_mhsw=# SELECT * FROM mahasiswi;
+ id_mahasiswi |       nama       |      jurusan
+--------------+------------------+--------------------
+            2 | Hasanah          | Akuntansi
+            3 | Nur Ulfiah       | Sistem Informasi
+            4 | Serlia Turu Allo | Teknik Informatika
+            5 | Pasrawan Patma   | PGSD
+            1 | Waffiq A. MR     | Ilmu Kimia
+(5 rows)
+
+
+pendidikan_mhsw=#
